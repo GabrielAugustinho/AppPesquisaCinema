@@ -1,0 +1,84 @@
+package apppesquisaopiniao;
+
+/**
+ *
+ * @author aluno
+ */
+public class Pesquisa {
+
+    // Atributos
+    private Espectador respostaPesquisa[];
+    private int qtdResposta = 0;
+
+    // Construtor
+    public Pesquisa() {
+        respostaPesquisa = new Espectador[50];
+    }
+
+    public Pesquisa(int qtd) {
+        respostaPesquisa = new Espectador[qtd];
+    }
+
+    // Metodos
+    public int getQtdResposta() {
+        return qtdResposta;
+    }
+
+    public Espectador[] getRespostaPesquisa() {
+        return respostaPesquisa;
+    }
+
+    public boolean adiciona(Espectador novo) {
+        if (qtdResposta < respostaPesquisa.length) {
+            respostaPesquisa[qtdResposta++] = novo;
+            return true;
+        }
+        return false;
+    }
+
+    public int[] ocorrencias() {
+        int resultado[] = new int[5];
+
+        for (int i = 0; i < qtdResposta; i++) {
+            switch (respostaPesquisa[i].getOpiniao()) {
+                case 'A':
+                    resultado[0]++;
+                    break;
+                case 'B':
+                    resultado[1]++;
+                    break;
+                case 'C':
+                    resultado[2]++;
+                    break;
+                case 'D':
+                    resultado[3]++;
+                    break;
+                case 'E':
+                    resultado[4]++;
+                    break;
+            }
+        }
+
+        return resultado;
+    }
+    
+    public float mediaIdade(){
+        int soma = 0;
+        
+        for (int i = 0; i < qtdResposta; i++) {
+            soma+=respostaPesquisa[i].getIdate();
+        }
+        
+        return soma/qtdResposta;
+    }
+    
+    public String dados(){
+        return "Participaram da pesquisa: " + qtdResposta + "\n" +
+               "Resultados: \n\n" +
+               "A(Ótimo): " + ocorrencias()[0] + "\n" +
+               "B(Bom): " + ocorrencias()[1] + "\n" +
+               "C(Regular): " + ocorrencias()[2] + "\n" +
+               "D(Ruim): " + ocorrencias()[3] + "\n" +
+               "E(Péssimo): " + ocorrencias()[4];
+    }
+}
