@@ -61,24 +61,33 @@ public class Pesquisa {
 
         return resultado;
     }
-    
-    public float mediaIdade(){
+
+    public float mediaIdade() {
         int soma = 0;
-        
+
         for (int i = 0; i < qtdResposta; i++) {
-            soma+=respostaPesquisa[i].getIdate();
+            soma += respostaPesquisa[i].getIdate();
+        }
+
+        return soma / qtdResposta;
+    }
+
+    public String dados() {
+        int ocorrencias[] = ocorrencias();
+        StringBuilder saida = new StringBuilder("Participaram da pesquisa: " + qtdResposta + "\n\n");
+        
+        String valores[] = {
+            "A(Ótimo): ",
+            "B(Bom): ",
+            "C(Regular): ",
+            "D(Ruim): ",
+            "E(Péssimo): "
+        };
+        
+        for(int i = 0; i<ocorrencias.length; i++){
+            saida.append("Resultados: \n").append(valores[i]).append(ocorrencias[i]).append("\n");
         }
         
-        return soma/qtdResposta;
-    }
-    
-    public String dados(){
-        return "Participaram da pesquisa: " + qtdResposta + "\n" +
-               "Resultados: \n\n" +
-               "A(Ótimo): " + ocorrencias()[0] + "\n" +
-               "B(Bom): " + ocorrencias()[1] + "\n" +
-               "C(Regular): " + ocorrencias()[2] + "\n" +
-               "D(Ruim): " + ocorrencias()[3] + "\n" +
-               "E(Péssimo): " + ocorrencias()[4];
+        return saida.toString();
     }
 }
