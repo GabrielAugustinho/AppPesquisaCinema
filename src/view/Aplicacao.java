@@ -6,6 +6,7 @@
 package view;
 
 import classes.Pesquisa;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -98,7 +99,7 @@ public class Aplicacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemListarResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarResultadoActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, pesquisa.dados(), "Saida", 1);
     }//GEN-LAST:event_jMenuItemListarResultadoActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed

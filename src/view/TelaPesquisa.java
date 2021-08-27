@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
  */
 public class TelaPesquisa extends javax.swing.JDialog {
 
-    private Pesquisa pesquisa; 
-    
+    private Pesquisa pesquisa;
+
     public TelaPesquisa(java.awt.Frame parent, boolean modal, Pesquisa pesquisa) {
         super(parent, modal);
         initComponents();
-        this.pesquisa=pesquisa;
+        this.pesquisa = pesquisa;
     }
 
     /**
@@ -45,6 +45,11 @@ public class TelaPesquisa extends javax.swing.JDialog {
         jBGrava = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do espectador"));
 
@@ -140,33 +145,44 @@ public class TelaPesquisa extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravaActionPerformed
-        if(jTFIdade.getText().isEmpty()){
+        if (jTFIdade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha a idade", "Aviso", 0);
             jTFIdade.requestFocusInWindow();
             return;
         }
-        
-        String simNao[]={
+
+        String simNao[] = {
             "Sim",
             "Não"
         };
-        if(BGOpinioes.getSelection()!= null){
-            int salva = JOptionPane.showOptionDialog(this,"Confirma os dados?", "Gravando...", JOptionPane.YES_NO_OPTION, 3, null, simNao,simNao[0]);
-            if(salva == 0){
+        if (BGOpinioes.getSelection() != null) {
+            int salva = JOptionPane.showOptionDialog(this, "Confirma os dados?", "Gravando...", JOptionPane.YES_NO_OPTION, 3, null, simNao, simNao[0]);
+            if (salva == 0) {
                 Espectador espectador = montaEspectador();
                 pesquisa.adiciona(espectador);
             }
+            jTFIdade.setText(null);
+            jTFIdade.requestFocusInWindow();
+            BGOpinioes.clearSelection();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, dê sua opinião sobre o filme", "Aviso", 0);
         }
     }//GEN-LAST:event_jBGravaActionPerformed
 
-    private Espectador montaEspectador(){
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        jTFIdade.setText(null);
+        jTFIdade.requestFocusInWindow();
+        BGOpinioes.clearSelection();
+    }//GEN-LAST:event_formWindowOpened
+
+    private Espectador montaEspectador() {
         Espectador objEspectador = new Espectador();
         objEspectador.setIdate(Byte.parseByte(jTFIdade.getText()));
         objEspectador.setOpiniao(BGOpinioes.getSelection().getActionCommand().charAt(0));
         return objEspectador;
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup BGOpinioes;
     private javax.swing.JButton jBGrava;
