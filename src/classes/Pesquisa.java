@@ -1,4 +1,4 @@
-package apppesquisaopiniao;
+package classes;
 
 /**
  *
